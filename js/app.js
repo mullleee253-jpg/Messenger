@@ -95,7 +95,125 @@ demoChats.forEach(chat => {
     chatsList.appendChild(chatItem);
 });
 
-// Search
+// Friends system
+let friends = JSON.parse(localStorage.getItem('friends_' + currentUser.username) || '[]');
+
+// Add friend modal
+const addFriendBtn = document.getElementById('addFriendBtn');
+const addFriendModal = document.getElementById('addFriendModal');
+const closeAddFriend = document.getElementById('closeAddFriend');
+const friendSearchInput = document.getElementById('friendSearchInput');
+const searchResults = document.getElementById('searchResults');
+
+addFriendBtn.addEventListener('click', () => {
+    addFriendModal.classList.add('active');
+    friendSearchInput.value = '';
+    searchResults.innerHTML = '';
+});
+
+closeAddFriend.addEventListener('click', () => {
+    addFriendModal.classList.remove('active');
+});
+
+addFriendModal.addEventListener('click', (e) => {
+    if (e.target === addFriendModal) {
+        addFriendModal.classList.remove('active');
+    }
+});
+
+// Real-time friend search
+friendSearchInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    searchResults.innerHTML = '';
+    
+    if (query.length < 2) {
+        searchResults.innerHTML = '<p style="color: var(--text-secondary); padding: 12px;">Введите минимум 2 символа</p>';
+        return;
+    }
+    
+    // Search in all registered users
+    const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const results = allUsers.filter(user => 
+        user.username.toLowerCase().includes(query) && 
+        user.username !== currentUser.username &&
+        !friends.find(f => f.username === user.username)
+    );
+    
+    if (results.length === 0) {
+        searchResults.innerHTML = '<p style="color: var(--text-secondary); padding: 12px;">Пользователи не найдены</p>';
+        return;
+    }
+    
+    results.forEach(user => {
+        const userItem = document.createElement('div');
+        userItem.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--border);';
+        userItem.innerHTML = `
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="avatar">${user.username[0].toUpperCase()}</div>
+                <div>
+                    <h4>${user.username}</h4>
+                    <p style="color: var(--text-secondary); font-size: 13px;">${user.email}</p>
+                </div>
+            </div>
+            <button class="auth-btn" style="width: auto; padding: 8px 16px; font-size: 14px;" onclick="addFriend('${user.username}', '${user.email}')">Добавить</button>
+        `;
+        searchResults.appendChild(userItem);
+    });
+});
+
+window.addFriend = function(username, email) {
+    const newFriend = {
+        id: Date.now(),
+        username: username,
+        email: email,
+        avatar: username[0].toUpperCase(),
+        lastMessage: 'Новый друг',
+        time: 'Сейчас'
+    };
+    
+    friends.push(newFriend);
+    localStorage.setItem('friends_' + currentUser.username, JSON.stringify(friends));
+    
+    // Add to chat list
+    const chatItem = document.createElement('div');
+    chatItem.className = 'chat-item';
+    chatItem.innerHTML = `
+        <div class="avatar">${newFriend.avatar}</div>
+        <div class="chat-item-info">
+            <h4>${newFriend.username}</h4>
+            <p>${newFriend.lastMessage}</p>
+        </div>
+        <span style="color: var(--text-secondary); font-size: 12px;">${newFriend.time}</span>
+    `;
+    chatItem.addEventListener('click', () => loadChat(newFriend));
+    chatsList.appendChild(chatItem);
+    
+    addFriendModal.classList.remove('active');
+    alert('Друг добавлен!');
+};
+
+// Load friends on start
+function loadFriends() {
+    friends.forEach(friend => {
+        const chatItem = document.createElement('div');
+        chatItem.className = 'chat-item';
+        chatItem.innerHTML = `
+            <div class="avatar">${friend.avatar}</div>
+            <div class="chat-item-info">
+                <h4>${friend.username}</h4>
+                <p>${friend.lastMessage}</p>
+            </div>
+            <span style="color: var(--text-secondary); font-size: 12px;">${friend.time}</span>
+        `;
+        chatItem.addEventListener('click', () => loadChat(friend));
+        chatsList.appendChild(chatItem);
+    });
+}
+
+// Load friends after demo chats
+setTimeout(loadFriends, 100);
+
+// Search in chats
 const searchInput = document.getElementById('searchInput');
 searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase();
