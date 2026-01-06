@@ -15,10 +15,13 @@
                     <div class="avatar" id="userAvatar"></div>
                     <span id="userName">Пользователь</span>
                 </div>
-                <button class="settings-btn" id="settingsBtn">⚙️</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="settings-btn" id="addFriendBtn" title="Добавить друга">➕</button>
+                    <button class="settings-btn" id="settingsBtn">⚙️</button>
+                </div>
             </div>
             <div class="search-box">
-                <input type="text" placeholder="Поиск..." id="searchInput">
+                <input type="text" placeholder="Поиск пользователей..." id="searchInput">
             </div>
             <div class="chats-list" id="chatsList"></div>
         </div>
@@ -89,6 +92,20 @@
                 <button class="call-btn mute-btn" id="muteBtn">🎤</button>
                 <button class="call-btn end-btn" id="endCallBtn">📵</button>
                 <button class="call-btn video-btn" id="toggleVideoBtn">📹</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Friend Modal -->
+    <div class="modal" id="addFriendModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавить друга</h2>
+                <button class="close-btn" id="closeAddFriend">×</button>
+            </div>
+            <div class="settings-content">
+                <input type="text" placeholder="Поиск по имени пользователя..." id="friendSearchInput" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); margin-bottom: 16px;">
+                <div id="searchResults"></div>
             </div>
         </div>
     </div>
