@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мессенджер</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar"></div>
+                    <span id="userName">Пользователь</span>
+                </div>
+                <button class="settings-btn" id="settingsBtn">⚙️</button>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Поиск..." id="searchInput">
+            </div>
+            <div class="chats-list" id="chatsList"></div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-info">
+                    <div class="avatar" id="chatAvatar"></div>
+                    <div>
+                        <h3 id="chatName">Выберите чат</h3>
+                        <span class="status" id="chatStatus"></span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-btn" id="voiceCallBtn">📞</button>
+                    <button class="action-btn" id="videoCallBtn">📹</button>
+                </div>
+            </div>
+            <div class="messages-container" id="messagesContainer"></div>
+            <div class="message-input">
+                <button class="attach-btn">📎</button>
+                <input type="text" placeholder="Введите сообщение..." id="messageInput">
+                <button class="send-btn" id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Настройки</h2>
+                <button class="close-btn" id="closeSettings">×</button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label>Тема</label>
+                    <select id="themeSelect">
+                        <option value="light">Светлая</option>
+                        <option value="dark">Темная</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Уведомления</label>
+                    <input type="checkbox" id="notificationsToggle" checked>
+                </div>
+                <div class="setting-item">
+                    <label>Звук сообщений</label>
+                    <input type="checkbox" id="soundToggle" checked>
+                </div>
+                <div class="setting-item">
+                    <label>Анимации</label>
+                    <input type="checkbox" id="animationsToggle" checked>
+                </div>
+                <button class="logout-btn" id="logoutBtn">Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Modal -->
+    <div class="modal" id="callModal">
+        <div class="call-content">
+            <div class="call-avatar"></div>
+            <h2 id="callName">Звонок...</h2>
+            <p id="callStatus">Соединение...</p>
+            <div class="call-actions">
+                <button class="call-btn mute-btn" id="muteBtn">🎤</button>
+                <button class="call-btn end-btn" id="endCallBtn">📵</button>
+                <button class="call-btn video-btn" id="toggleVideoBtn">📹</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/calls.js"></script>
+</body>
+</html>

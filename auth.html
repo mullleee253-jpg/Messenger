@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Мессенджер</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>Мессенджер</h1>
+            
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <h2>Вход</h2>
+                <input type="text" placeholder="Имя пользователя" id="loginUsername">
+                <input type="password" placeholder="Пароль" id="loginPassword">
+                <button class="auth-btn" id="loginBtn">Войти</button>
+                <p class="auth-switch">Нет аккаунта? <a href="#" id="showRegister">Зарегистрироваться</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form hidden" id="registerForm">
+                <h2>Регистрация</h2>
+                <input type="text" placeholder="Имя пользователя" id="registerUsername">
+                <input type="email" placeholder="Email" id="registerEmail">
+                <input type="password" placeholder="Пароль" id="registerPassword">
+                <input type="password" placeholder="Повторите пароль" id="registerPasswordConfirm">
+                <button class="auth-btn" id="registerBtn">Зарегистрироваться</button>
+                <p class="auth-switch">Уже есть аккаунт? <a href="#" id="showLogin">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
